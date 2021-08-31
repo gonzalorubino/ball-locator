@@ -1,13 +1,11 @@
-import microCors from 'micro-cors';
-import generateRandomCoordinate from './util/util';
+const cors = require("micro-cors")();
+import generateRandomCoordinate from "./util/util";
 
-const cors = microCors();
-
-function generateObject(){
+function generateObject() {
   let i;
   let obj = new Array();
 
-  for(i=0; i<8; i++){
+  for (i = 0; i < 8; i++) {
     obj.push(generateRandomCoordinate());
   }
 
@@ -15,13 +13,13 @@ function generateObject(){
 }
 
 const handler = (request, response) => {
-  if (request.method === 'OPTIONS') {
-    return response.status(200).send('ok');
+  if (request.method === "OPTIONS") {
+    return response.status(200).send("ok");
   }
 
   const objCoord = generateObject();
-  
-  res.status(200).json({ data: objCoord });
+
+  response.status(200).json({ data: objCoord });
 };
 
 export default cors(handler);
