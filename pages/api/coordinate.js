@@ -1,4 +1,7 @@
+import microCors from 'micro-cors';
 import generateRandomCoordinate from './util/util';
+
+const cors = microCors();
 
 function generateObject(){
   let i;
@@ -11,8 +14,14 @@ function generateObject(){
   return obj;
 }
 
-export default function handler(req, res) {
+const handler = (request, response) => {
+  if (request.method === 'OPTIONS') {
+    return response.status(200).send('ok');
+  }
+
   const objCoord = generateObject();
   
   res.status(200).json({ data: objCoord });
-}
+};
+
+export default cors(handler);
